@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+        <div class="container" id="app">
+            <div class="title">Registration</div>
+            <form action="#">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">StudentID :</span>
+                        <input type="tel" id="id" placeholder="Enter your id" maxlength="10" v-model="student.id" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">First name :</span>
+                        <input type="text" id="fname" placeholder="Enter your name" v-model="student.fname" required >
+                    </div>
+                    <div class="input-box">
+                        <span for="lname" class="details">Last name :</span>
+                        <input type="text" id="lname" placeholder="Enter your surname" v-model="student.lname" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Email :</span>
+                        <input type="email" id="email" placeholder="MJUXXX@mju.ac.th" v-model="student.email" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">GPA :</span>
+                        <input type="text" id="gpa" placeholder="4.00" v-model="student.gpa" required maxlength="4">
+                    </div>
+                    <div class="botton" >
+                        <p>Please verify that the information is correct before pressing confirm.</p>
+                        <input type="submit" value="submit" @click="inputStudent(student)">
+                    </div>
+                </div>
+            
+            </form>
+            
+
+        </div>
+        <div class="formTable">
+            <table class="content-table">
+                <div class="table"></div>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Email</th>
+                        <th>GPA</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(student, index) in studentList ">
+                        <td v-if="stu.gpa < 2.00" style="color: red;font-weight: bold;">{{student.id}}</td>
+                        <td v-if="stu.gpa < 2.00" style="color: red;font-weight: bold;">{{student.fname}}</td>
+                        <td v-if="stu.gpa < 2.00" style="color: red;font-weight: bold;">{{student.lname}}</td>
+                        <td v-if="stu.gpa < 2.00" style="color: red;font-weight: bold;">{{student.email}}</td>
+                        <td v-if="stu.gpa < 2.00" style="color: red;font-weight: bold;">{{student.gpa}}</td>
+
+                        <td v-if="stu.gpa >= 2.00 && stu.gpa <= 4.00">{{student.id}}</td>
+                        <td v-if="stu.gpa >= 2.00 && stu.gpa <= 4.00">{{student.fname}}</td>
+                        <td v-if="stu.gpa >= 2.00 && stu.gpa <= 4.00">{{student.lname}}</td>
+                        <td v-if="stu.gpa >= 2.00 && stu.gpa <= 4.00">{{student.email}}</td>
+                        <td v-if="stu.gpa >= 2.00 && stu.gpa <= 4.00">{{student.gpa}}</td>
+
+                        <td><button type="reset" @click="deleteStudent(index)">Delete</button></td>
+                    </tr>
+                </tbody>
+    
+                
+    
+            </table>
+        </div>
+</body>
+</html>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            student:{},
+            studentList: []
+        },
+        methods: {
+            inputStudent: function(student){
+                this.studentList.push(student)
+                this.student = {}
+            },
+            deleteStudent(index){
+                this.studentList.splice(index,1);
+            }
+        }
+    })
+    $(document).ready(function(){
+        $('#gpa').mask('0.00');
+        $('#id').mark('0000000000');
+    })
+</script>
